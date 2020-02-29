@@ -106,11 +106,11 @@ export interface Transmission {
 }
 
 export interface Program {
-    name: string;
-    document_id: number;
-    program_id: string;
+    name?: string;
+    document_id?: number;
+    program_id?: string;
     parent_id?: any;
-    user_id: string;
+    user_id?: string;
     account_id?: any;
     result?: any;
 }
