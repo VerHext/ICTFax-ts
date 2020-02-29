@@ -1,8 +1,18 @@
 /// <reference lib="es2018" />
 
 export {
-    Login,
-    LoginResponse,
+    IctFaxClient,
+  } from './IctFaxClient';
+
+export {
+    Program,
+    Transmission,
+    Contact,
+    Document,
+    User,
+    Provider,
     ErrorResponse,
     Error,
+    LoginResponse,
+    Login,
   } from './types/API';
