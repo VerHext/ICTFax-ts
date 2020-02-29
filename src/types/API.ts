@@ -105,3 +105,14 @@ export interface Transmission {
     response?: string;
 }
 
+export interface Program {
+    name: string;
+    document_id: number;
+    program_id: string;
+    parent_id?: any;
+    user_id: string;
+    account_id?: any;
+    result?: any;
+}
+
+

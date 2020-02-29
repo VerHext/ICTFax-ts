@@ -1,6 +1,6 @@
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { LoginResponse, Login, ErrorResponse, Provider, User, Document, Contact, Transmission } from './types/API';
+import { LoginResponse, Login, ErrorResponse, Provider, User, Document, Contact, Transmission, Program } from './types/API';
 import fs from "fs"
 import request from "request"
 
@@ -35,6 +35,62 @@ export class IctFaxClient {
     }
 
     /**
+     * Programs Managment
+     * Provider (GET; POST; PUT; )
+    */
+    async UpdateProgram(trans: Program) : Promise<Program>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: trans
+          };
+        const response = await axios.put(this.Url + "/api/programs/" + trans.program_id, { }, options)
+        return <Program>response.data;
+    }
+    async CreateProgram(doc: Program) : Promise<number>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: doc
+          };
+        const response = await axios.post(this.Url + "/api/programs", { }, options)
+        return <number>response.data;
+    }
+    async CreateSendToFaxProgram(doc: Program) : Promise<number>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: doc
+          };
+        const response = await axios.post(this.Url + "/api/programs/sendfax", { }, options)
+        return <number>response.data;
+    }
+    async GetProgram(id: number) : Promise<Program>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/programs/" + id, options)
+        return <Program>response.data;
+    }
+    async DeleteProgram(id: number) : Promise<boolean>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.delete(this.Url + "/api/programs/" + id, options)
+        return <boolean>response.data;
+    }
+    async GetAllPrograms() : Promise<Program[]>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/programs", options)
+        return <Program[]>response.data;
+    }
+
+    /**
      * Transmission Managment
      * Provider (GET; POST; PUT; )
     */
@@ -44,7 +100,7 @@ export class IctFaxClient {
             withCredentials: true,
             data: trans
           };
-        const response = await axios.put(this.Url + "/api/messages/transmissions/" + trans.transmission_id, { }, options)
+        const response = await axios.put(this.Url + "/api/transmissions/" + trans.transmission_id, { }, options)
         return <Transmission>response.data;
     }
     async CreateTransmission(doc: Transmission) : Promise<number>{
@@ -53,7 +109,7 @@ export class IctFaxClient {
             withCredentials: true,
             data: doc
           };
-        const response = await axios.post(this.Url + "/api/messages/transmissions", { }, options)
+        const response = await axios.post(this.Url + "/api/transmissions", { }, options)
         return <number>response.data;
     }
     async GetTransmission(id: number) : Promise<Transmission>{
@@ -61,7 +117,7 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.get(this.Url + "/api/messages/transmissions/" + id, options)
+        const response = await axios.get(this.Url + "/api/transmissions/" + id, options)
         return <Transmission>response.data;
     }
     async DeleteTransmission(id: number) : Promise<boolean>{
@@ -69,7 +125,7 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.delete(this.Url + "/api/messages/transmissions/" + id, options)
+        const response = await axios.delete(this.Url + "/api/transmissions/" + id, options)
         return <boolean>response.data;
     }
     async GetAllTransmissions() : Promise<Transmission[]>{
@@ -77,8 +133,16 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.get(this.Url + "/api/messages/transmissions", options)
+        const response = await axios.get(this.Url + "/api/transmissions", options)
         return <Transmission[]>response.data;
+    }
+    async SendTransmission(id: number) : Promise<boolean>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.post(this.Url + "/api/transmissions/" + id + "/send", options)
+        return <boolean>response.data;
     }
 
 
@@ -92,7 +156,7 @@ export class IctFaxClient {
             withCredentials: true,
             data: user
           };
-        const response = await axios.put(this.Url + "/api/messages/contacts/" + user.document_id, { }, options)
+        const response = await axios.put(this.Url + "/api/contacts/" + user.document_id, { }, options)
         return <Document>response.data;
     }
     async CreateContact(doc: Contact) : Promise<number>{
@@ -101,7 +165,7 @@ export class IctFaxClient {
             withCredentials: true,
             data: doc
           };
-        const response = await axios.post(this.Url + "/api/messages/contacts", { }, options)
+        const response = await axios.post(this.Url + "/api/contacts", { }, options)
         return <number>response.data;
     }
     async GetContact(id: number) : Promise<Contact>{
@@ -109,7 +173,7 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.get(this.Url + "/api/messages/contacts/" + id, options)
+        const response = await axios.get(this.Url + "/api/contacts/" + id, options)
         return <Contact>response.data;
     }
     async DeleteContact(id: number) : Promise<boolean>{
@@ -117,7 +181,7 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.delete(this.Url + "/api/messages/contacts/" + id, options)
+        const response = await axios.delete(this.Url + "/api/contacts/" + id, options)
         return <boolean>response.data;
     }
     async GetAllContacts() : Promise<Contact[]>{
@@ -125,7 +189,7 @@ export class IctFaxClient {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.get(this.Url + "/api/messages/contacts", options)
+        const response = await axios.get(this.Url + "/api/contacts", options)
         return <Contact[]>response.data;
     }
     
