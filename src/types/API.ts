@@ -78,3 +78,30 @@ export interface Document {
     description?: string;
     quality?: Quality;
 }
+export interface Contact {
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
+    email?: string;
+    address?: string;
+    custom1?: string;
+    custom2?: string;
+    custom3?: string;
+    description?: string;
+    contact_id?: number;
+}
+
+
+export interface Transmission {
+    transmission_id: number;
+    title?: string;
+    origin?: string;
+    contact_id?: number;
+    account_id?: number;
+    service_flag?:  string;
+    program_id?: number;
+    direction?: string;
+    status?: string;
+    response?: string;
+}
+

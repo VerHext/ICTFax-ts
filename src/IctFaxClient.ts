@@ -1,6 +1,6 @@
 
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { LoginResponse, Login, ErrorResponse, Provider, User, Document } from './types/API';
+import { LoginResponse, Login, ErrorResponse, Provider, User, Document, Contact, Transmission } from './types/API';
 import fs from "fs"
 import request from "request"
 
@@ -34,14 +34,107 @@ export class IctFaxClient {
         
     }
 
+    /**
+     * Transmission Managment
+     * Provider (GET; POST; PUT; )
+    */
+    async UpdateTransmission(trans: Transmission) : Promise<Transmission>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: trans
+          };
+        const response = await axios.put(this.Url + "/api/messages/transmissions/" + trans.transmission_id, { }, options)
+        return <Transmission>response.data;
+    }
+    async CreateTransmission(doc: Transmission) : Promise<number>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: doc
+          };
+        const response = await axios.post(this.Url + "/api/messages/transmissions", { }, options)
+        return <number>response.data;
+    }
+    async GetTransmission(id: number) : Promise<Transmission>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/messages/transmissions/" + id, options)
+        return <Transmission>response.data;
+    }
+    async DeleteTransmission(id: number) : Promise<boolean>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.delete(this.Url + "/api/messages/transmissions/" + id, options)
+        return <boolean>response.data;
+    }
+    async GetAllTransmissions() : Promise<Transmission[]>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/messages/transmissions", options)
+        return <Transmission[]>response.data;
+    }
+
+
+    /**
+     * Contact Managment
+     * Provider (GET; POST; PUT; )
+    */
+    async UpdateContact(user: Document) : Promise<Document>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: user
+          };
+        const response = await axios.put(this.Url + "/api/messages/contacts/" + user.document_id, { }, options)
+        return <Document>response.data;
+    }
+    async CreateContact(doc: Contact) : Promise<number>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+            data: doc
+          };
+        const response = await axios.post(this.Url + "/api/messages/contacts", { }, options)
+        return <number>response.data;
+    }
+    async GetContact(id: number) : Promise<Contact>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/messages/contacts/" + id, options)
+        return <Contact>response.data;
+    }
+    async DeleteContact(id: number) : Promise<boolean>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.delete(this.Url + "/api/messages/contacts/" + id, options)
+        return <boolean>response.data;
+    }
+    async GetAllContacts() : Promise<Contact[]>{
+        const options = {
+            headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
+            withCredentials: true,
+          };
+        const response = await axios.get(this.Url + "/api/messages/contacts", options)
+        return <Contact[]>response.data;
+    }
+    
 
     /**
      * Document Media Managment
      * Provider (GET; POST; PUT; )
     */
     async AddDocumentFile(filePath: string, id: number){
-
-        var data =fs.readFileSync('./ev.pdf');
 
        request({
         url: this.Url + '/api/messages/documents/'+id+'/media',
@@ -60,8 +153,6 @@ export class IctFaxClient {
     }
 
        
-
-
     /**
      * Document Managment
      * Provider (GET; POST; PUT; )
