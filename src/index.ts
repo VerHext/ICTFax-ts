@@ -16,3 +16,10 @@ export {
     LoginResponse,
     Login,
   } from './types/API';
+
+  export {
+    ActiveStatus,
+    GatewayType,
+    Role,
+    Quality,
+  } from './types/enums';

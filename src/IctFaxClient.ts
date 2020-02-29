@@ -1,6 +1,6 @@
 
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { LoginResponse, Login, ErrorResponse, Provider, User, Document, Contact, Transmission, Program } from './types/API';
+import axios from 'axios';
+import { LoginResponse, Login, Provider, User, Document, Contact, Transmission, Program } from './types/API';
 import fs from "fs"
 import request from "request"
 
@@ -211,8 +211,6 @@ export class IctFaxClient {
         },
         encoding: null,
         body: fs.createReadStream(filePath)
-       }, (error: any, response: any, body: any) => {
-
        });
     }
 
