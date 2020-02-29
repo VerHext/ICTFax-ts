@@ -136,13 +136,13 @@ export class IctFaxClient {
         const response = await axios.get(this.Url + "/api/transmissions", options)
         return <Transmission[]>response.data;
     }
-    async SendTransmission(id: number) : Promise<boolean>{
+    async SendTransmission(id: number) : Promise<number>{
         const options = {
             headers: {'Content-Type': 'application/json', "Authorization": "Bearer " + this.AuthToken},
             withCredentials: true,
           };
-        const response = await axios.post(this.Url + "/api/transmissions/" + id + "/send", options)
-        return <boolean>response.data;
+        const response = await axios.post(this.Url + "/api/transmissions/" + id + "/send",{}, options)
+        return <number>response.data;
     }
 
 

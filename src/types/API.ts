@@ -93,7 +93,7 @@ export interface Contact {
 
 
 export interface Transmission {
-    transmission_id: number;
+    transmission_id?: number;
     title?: string;
     origin?: string;
     contact_id?: number;
