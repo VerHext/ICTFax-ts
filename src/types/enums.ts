@@ -9,3 +9,16 @@ export enum GatewayType {
     SMTP = "SMTP"
 }
 
+export enum Role {
+    user = "user",
+    admin = "admin",
+}
+
+
+export enum Quality{
+    super = "super",
+    fine = "fine",
+    standard = "standard"
+}
+
+

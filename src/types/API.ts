@@ -1,5 +1,5 @@
 
-import{ActiveStatus, GatewayType} from "./enums"
+import{ActiveStatus, GatewayType, Quality} from "./enums"
 
 export interface Login {
     username: string;
@@ -52,4 +52,29 @@ export interface Provider {
     register?: ActiveStatus;
     weight?: number;
     active?: ActiveStatus;
+}
+
+export interface User {
+    username?: string;
+    passwd?: string;
+    first_name?: string;
+    last_name?: string;
+    phone?: string;
+    email?: string;
+    address?: string;
+    company?: string;
+    country_id?: number;
+    timezone_id?: number;
+    active?: ActiveStatus;
+    user_id?: number;
+}
+
+export interface Document {
+    document_id?: string;
+    name?: string;
+    file_name?: string;
+    type?: string;
+    pages?: string;
+    description?: string;
+    quality?: Quality;
 }
